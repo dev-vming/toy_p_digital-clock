@@ -28,7 +28,7 @@ function getTime() {
 
 
     // 템플릿 리터럴 이용하여 날짜와 시간 표시
-    todayDiv.textContent = `${year} - ${month} - ${date} ${day}`;
+    todayDiv.innerHTML = `${year} - ${month} - ${date} &nbsp;&nbsp; ${day}`;
     timeDiv.textContent = `${hour} : ${minute} : ${second}`;
 }
 
