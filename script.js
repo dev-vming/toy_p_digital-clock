@@ -14,6 +14,11 @@ function getTime() {
     let minute = now.getMinutes();
     let second = now.getSeconds();
 
+    // 요일 영어로 표시 추가
+    let daynames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    let day = daynames[now.getDay()];
+
+
     // 삼항연산자 사용하여 숫자가 두자리로 나오게끔 처리
     month = month < 10 ? `0${month}` : month;
     date = date < 10 ? `0${date}` : date;
@@ -23,8 +28,8 @@ function getTime() {
 
 
     // 템플릿 리터럴 이용하여 날짜와 시간 표시
-    todayDiv.textContent = `${year}년 ${month}월 ${date}일`;
-    timeDiv.textContent = `${hour}시 ${minute}분 ${second}초`;
+    todayDiv.textContent = `${year} - ${month} - ${date} ${day}`;
+    timeDiv.textContent = `${hour} : ${minute} : ${second}`;
 }
 
 // setInterval로 인해 페이지가 로드 된 후 1초간 시계 보이지 않는 현상 개선
