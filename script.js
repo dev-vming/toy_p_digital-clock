@@ -50,61 +50,54 @@ const full_reset = document.querySelector("#btn_full_reset");
 
 
 // 30분타이머
-let halftime = 1799000;
+let count = 1800000;
+let counter = half_counter;
+let interval;
 
-half_counter.textContent = "00:30:00";
-half_start.addEventListener('click', ()=>{halfcountdown(half_counter, halftime)});
+counter.textContent = "00:30:00";
+half_start.addEventListener('click', ()=>{interval = setInterval(start, 1000)});
+half_stop.addEventListener('click',(()=>{pause()}));
+half_reset.addEventListener('click', ()=>{reset()});
 
-function halfcountdown (counter, count){
-    function start() {
-        
-        let h = String(Math.floor(count/60/60/1000));
+
+function start() {
+    if (count !== 0){
+        count -= 1000 ; 
+        let h = String(Math.floor(count/60/60/1000)); 
         let m = String(Math.floor(count/60/1000));
         let s = String(Math.floor(count/1000)%60);
-
-        if (count !== 0){
-            count -= 1000;
-            counter.textContent = `${h.padStart(2,'0')}:${m.padStart(2,'0')}:${s.padStart(2,'0')}`;
-        } else {
-            alert("TIME OUT!");
-            clearInterval(interval);
-        }
-    }
-    let interval = setInterval(start, 1000);
-    
-    half_stop.addEventListener('click',(()=>{pause()}));
-
-    function pause (){
-        halftime = count;
+        counter.textContent = `${h.padStart(2,'0')}:${m.padStart(2,'0')}:${s.padStart(2,'0')}`;
+    } else {
+        alert("TIME OUT!");
         clearInterval(interval);
     }
-
-    half_reset.addEventListener('click', ()=>{reset(half_counter)});
-    
-    function reset (){
-        clearInterval(interval);
-        counter.textContent = "00:30:00";
-        halftime = 1799000;
-    } 
-    
 }
+
+function pause (){
+    clearInterval(interval);
+}
+
+function reset (){
+    clearInterval(interval);
+    counter.textContent = "00:30:00";
+    count = 1800000;
+} 
+
 
 
 // 1시간 타이머
-let fulltime = 3599000;
+let fulltime = 3600000;
 
 full_counter.textContent = "01:00:00";
 full_start.addEventListener('click', ()=>{fullcountdown(full_counter, fulltime)});
 
 function fullcountdown (counter, count){
     function start() {
-        
-        let h = String(Math.floor(count/60/60/1000));
-        let m = String(Math.floor(count/60/1000));
-        let s = String(Math.floor(count/1000)%60);
-
         if (count !== 0){
             count -= 1000;
+            let h = String(Math.floor(count/60/60/1000));
+            let m = String(Math.floor(count/60/1000));
+            let s = String(Math.floor(count/1000)%60);
             counter.textContent = `${h.padStart(2,'0')}:${m.padStart(2,'0')}:${s.padStart(2,'0')}`;
         } else {
             alert("TIME OUT!");
@@ -125,7 +118,7 @@ function fullcountdown (counter, count){
     function reset (){
         clearInterval(interval);
         counter.textContent = "01:00:00";
-        fulltime = 3599000;
+        fulltime = 3600000;
     } 
     
 }
